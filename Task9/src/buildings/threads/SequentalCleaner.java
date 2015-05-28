@@ -20,20 +20,13 @@ public class SequentalCleaner implements Runnable {
 	@Override
 	public void run()
 	{
-		try {
-			Thread.sleep(20);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		for (int f = 0; f < m_floor.getCountPlacement(); f++)
 		{
-			m_semaphor.startClean();
+			m_semaphor.take();
 			System.out.println("Cleaning room number "+f+" with total area "+m_floor.getPlacement(f).getSpace()+" square meters");
-			m_semaphor.endClean();
+			m_semaphor.switchThread();
 		}
-		//m_semaphor.release();
+		m_semaphor.release();
 	}
 	
 	public void setFloor(IFloor floor)

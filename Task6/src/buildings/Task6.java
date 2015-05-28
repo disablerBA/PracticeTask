@@ -27,6 +27,7 @@ import buildings.threads.Repairer;
 import buildings.threads.Semaphor;
 import buildings.threads.SequentalCleaner;
 import buildings.threads.SequentalRepairer;
+import buildings.threads.SwitchingSemaphor;
 
 public class Task6 {
 
@@ -34,7 +35,7 @@ public class Task6 {
 		// TODO Auto-generated method stub
 		
 		IFloor floor = new DwellingFloor(100);
-		Semaphor sem = new Semaphor();
+		SwitchingSemaphor sem = new SwitchingSemaphor();
 		SequentalRepairer sr = new SequentalRepairer(sem, floor);
 		SequentalCleaner sc = new SequentalCleaner(sem, floor);
 		Thread t1 = new Thread(sr);

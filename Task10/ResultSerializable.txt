@@ -1,0 +1,3 @@
+500000
+The building was arrested!
+600000

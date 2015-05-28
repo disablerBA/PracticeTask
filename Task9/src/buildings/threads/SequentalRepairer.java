@@ -23,11 +23,11 @@ public class SequentalRepairer implements Runnable {
 	{	
 		for (int f = 0; f < m_floor.getCountPlacement(); f++)
 		{
-			m_semaphor.startRepair();
+			m_semaphor.take();
 			System.out.println("Repairing space number "+f+" with total area "+m_floor.getPlacement(f).getSpace()+" square meters");
-			m_semaphor.endRepair();
+			m_semaphor.switchThread();
 		}
-		//m_semaphor.release();
+		m_semaphor.release();
 	}
 	
 	public void setFloor(IFloor floor)
