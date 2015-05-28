@@ -93,17 +93,23 @@ public class Task9 {
 		{
 			os = new FileOutputStream(fileDwellingBin);
 			Buildings.outputBuilding(dwelling, os);
+			os.close();
 			os = new FileOutputStream(fileOfficeBin);
 			Buildings.outputBuilding(officeBuilding, os);
+			os.close();
 			os = new FileOutputStream(fileHotelBin);
 			Buildings.outputBuilding(hotel, os);
+			os.close();
 			
 			fw = new FileWriter(fileDwellingTxt);
 			Buildings.writeBuilding(dwelling, fw);
+			fw.close();
 			fw = new FileWriter(fileOfficeTxt);
 			Buildings.writeBuilding(officeBuilding, fw);
+			fw.close();
 			fw = new FileWriter(fileHotelTxt);
 			Buildings.writeBuilding(hotel, fw);
+			fw.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
