@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.lang.reflect.*;
+import java.util.Formatter;
+import java.util.Scanner;
 
 import buildings.dwelling.DwellingFactory;
 import buildings.dwelling.hotel.HotelFactory;
@@ -223,51 +225,63 @@ public class Buildings {
 		return Buildings.createBuilding(buildingClass, floors);
 	}
 	
+	public static void writeSheet(Writer out) throws IOException
+	{
+		Formatter fmt = new Formatter(out);
+		fmt.format("%d %d %d %s", 1, 2, 3, "ypa!");
+		fmt.format("%s   %d", "new ypa!", 22);
+		fmt.flush();
+		fmt.close();
+	}
+	
 	public static void writeBuilding (IBuilding building, Writer out) throws IOException
 	{
+		Formatter fmt = new Formatter(out);
 		switch (building.getClass().getName())
 		{
 			case "buildings.dwelling.Dwelling":
-				out.write(DWELLING+" ");
+				fmt.format("%d ", DWELLING);
 				break;
 				
 			case "buildings.office.OfficeBuilding":
-				out.write(OFFICE_BUILDING+" ");
+				fmt.format("%d ", OFFICE_BUILDING);
 				break;
 				
 			case "buildings.dwelling.hotel.Hotel":
-				out.write(HOTEL+" ");
+				fmt.format("%d ", HOTEL);
 				break;
 		}
 		
-		out.write(building.getCountFloor()+" ");
+		fmt.format("%d ", building.getCountFloor());
 		for ( int f = 0; f < building.getCountFloor(); f++)
 		{
 			switch (building.getFloor(f).getClass().getName())
 			{
 				case "buildings.dwelling.DwellingFloor":
-					out.write(DWELLING+" ");
+					fmt.format("%d ", DWELLING);
 					break;
 					
 				case "buildings.office.OfficeFloor":
-					out.write(OFFICE_BUILDING+" ");
+					fmt.format("%d ", OFFICE_BUILDING);
 					break;
 					
 				case "buildings.dwelling.hotel.HotelFloor":
-					out.write(HOTEL+" ");
-					out.write( ((HotelFloor)building.getFloor(f)).getStars()+" " );
+					fmt.format("%d ", HOTEL);
+					fmt.format("%d ", ((HotelFloor)building.getFloor(f)).getStars());
 					break;
 			}
 
-			out.write(building.getFloor(f).getCountPlacement()+" ");
+			fmt.format("%d ", building.getFloor(f).getCountPlacement());
 			for ( int p = 0; p < building.getFloor(f).getCountPlacement(); p++)
 			{
-				out.write(building.getFloor(f).getPlacement(p).getCountRoom()+" ");
-				out.write( building.getFloor(f).getPlacement(p).getSpace()+" ");
+				fmt.format("%d ", building.getFloor(f).getPlacement(p).getCountRoom() );
+				fmt.format("%d ", building.getFloor(f).getPlacement(p).getSpace() );
 			}
 		}
 		
-		out.write("\n");
+		fmt.format("%n");
+		fmt.flush();
+		//fmt.close();
 	}
 	
 	public static IBuilding readBuilding (Reader in) throws IOException
@@ -327,6 +341,80 @@ public class Buildings {
 				sT.nextToken();
 				System.out.println("Площадь помещения = "+sT.nval);
 				floors[f].getPlacement(p).setSpace((int)sT.nval);
+			}
+		}
+		
+		// ^???
+		switch ( typeBuilding )
+		{
+			case DWELLING: 
+				buildingFactory = new DwellingFactory();
+				break;
+				
+			case OFFICE_BUILDING:
+				buildingFactory = new OfficeFactory();
+				break;
+			
+			case HOTEL:
+				buildingFactory = new HotelFactory();
+				break;
+		}
+		
+		return buildingFactory.createBuilding(floors);
+		// $???
+	}
+	
+	public static IBuilding readBuilding ( Scanner scanner) throws IOException
+	{
+		int countPlacement
+			,typeFloor = 0
+			,stars = 0;
+		
+		if ( !scanner.hasNext())
+		{
+			return null;
+		}
+		
+		int typeBuilding = scanner.nextInt();
+		IFloor[] floors = new IFloor[scanner.nextInt()];
+		System.out.println("Кол-во этажей = "+floors.length);
+		
+		for ( int f = 0; f < floors.length; f++ )
+		{
+			typeFloor = scanner.nextInt();
+			if ( typeFloor == HOTEL )
+			{
+				stars = scanner.nextInt();
+			}
+			
+			countPlacement = scanner.nextInt();
+			System.out.println("Кол-во помещений на этаже = "+countPlacement);
+			
+			switch ( typeFloor )
+			{
+				case DWELLING:
+					buildingFactory = new DwellingFactory();
+					floors[f] = buildingFactory.createFloor(countPlacement);
+					break;
+					
+				case OFFICE_BUILDING:
+					buildingFactory = new OfficeFactory();
+					floors[f] = buildingFactory.createFloor(countPlacement);
+					break;
+					
+				case HOTEL:
+					buildingFactory = new HotelFactory();
+					floors[f] = buildingFactory.createFloor(countPlacement);
+					((HotelFloor)floors[f]).setStars(stars);
+					break;
+			}
+			
+			for ( int p = 0; p < countPlacement; p++)
+			{
+				floors[f].getPlacement(p).setCountRoom(scanner.nextInt());
+				System.out.println("Кол-во комнат в помещении = "+floors[f].getPlacement(p).getCountRoom());
+				floors[f].getPlacement(p).setSpace(scanner.nextInt());
+				System.out.println("Площадь помещения = "+floors[f].getPlacement(p).getSpace());
 			}
 		}
 		

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
 
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
@@ -25,11 +26,29 @@ public class Task10 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		DwellingFloor df = new DwellingFloor(3);
-		DwellingFloor df2 = (DwellingFloor)df.clone();
-		System.out.println("1 этаж 1 помещение "+df.getPlacement(0));
-		df.getPlacement(0).setCountRoom(10);
-		System.out.println("1 этаж 1 помещение "+df.getPlacement(0));
-		System.out.println("2 этаж 1 помещение "+df2.getPlacement(0));
+		int[] ad = {1,2,3,4};
+		Dwelling d = new Dwelling(ad.length, ad);
+		d.getPlacement(9).setSpace(400);
+		IBuilding b;
+		
+		try ( FileWriter fw = new FileWriter("TestFormatOut.txt"))
+		{
+			Buildings.writeBuilding(d, fw);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try ( FileReader fr = new FileReader("TestFormatOut.txt") )
+		{
+			b = Buildings.readBuilding(new Scanner(fr));
+			System.out.println(b);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
