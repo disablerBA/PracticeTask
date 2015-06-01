@@ -22,8 +22,8 @@ public class SerialClient {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		File buildingsFile = new File("Buildings.txt");	// поменять на args
-		File resultFile = new File("ResultSerializable.txt"); // поменять на args
+		File buildingsFile = new File(args[0]/*"Buildings.txt"*/);	
+		File resultFile = new File(args[1]/*"ResultSerializable.txt"*/); 
 		FileReader fr = null;
 		FileWriter fw = null;
 		ObjectOutputStream oos = null;

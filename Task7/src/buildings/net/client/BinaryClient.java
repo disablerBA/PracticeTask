@@ -20,8 +20,8 @@ public class BinaryClient {
 		// TODO Auto-generated method stub
 
 		IBuilding b = null;
-		File buildingsFile = new File("Buildings.txt");	// поменять на args
-		File resultFile = new File("Result.txt"); // поменять на args
+		File buildingsFile = new File(args[0]/*"Buildings.txt"*/);	
+		File resultFile = new File(args[1]/*"Result.txt"*/); 
 		FileReader fr = null;
 		FileWriter fw = null;
 		Socket socket = null;
