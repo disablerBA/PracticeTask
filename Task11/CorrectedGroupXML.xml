@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE group SYSTEM "asdgroup.dtd">
+<group>
+	<student firstname="Иван" groupnumber="1" lastname="Иванов">
+		<subject mark="5" title="История"/>
+		<subject mark="5" title="Маркетинг"/>
+		<subject mark="5" title="Психология"/>
+		<subject mark="5" title="Философия"/>
+		<average>5</average>
+	</student>
+	<student firstname="Петр" groupnumber="1" lastname="Петров">
+		<subject mark="4" title="История"/>
+		<subject mark="4" title="Маркетинг"/>
+		<subject mark="4" title="Психология"/>
+		<subject mark="4" title="Философия"/>
+		<average>4</average>
+	</student>
+	<student firstname="Федор" groupnumber="1" lastname="Федоров">
+		<subject mark="3" title="История"/>
+		<subject mark="3" title="Маркетинг"/>
+		<subject mark="3" title="Психология"/>
+		<subject mark="3" title="Философия"/>
+		<average>3</average>
+	</student>
+	<student firstname="Александр" groupnumber="2" lastname="Александров">
+		<subject mark="3" title="История"/>
+		<subject mark="4" title="Маркетинг"/>
+		<subject mark="5" title="Психология"/>
+		<subject mark="4" title="Философия"/>
+		<average>4.0</average>
+	</student>
+	<student firstname="Алексей" groupnumber="2" lastname="Алексеев">
+		<subject mark="4" title="История"/>
+		<subject mark="4" title="Маркетинг"/>
+		<subject mark="3" title="Психология"/>
+		<subject mark="4" title="Философия"/>
+		<average>3.75</average>
+	</student>
+	<student firstname="Андрей" groupnumber="2" lastname="Андреев">
+		<subject mark="3" title="История"/>
+		<subject mark="3" title="Маркетинг"/>
+		<subject mark="4" title="Психология"/>
+		<subject mark="4" title="Философия"/>
+		<average>3.5</average>
+	</student>
+</group>
